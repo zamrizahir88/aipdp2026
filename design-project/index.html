@@ -24,12 +24,16 @@ body{background:radial-gradient(ellipse at 50% 30%, var(--desk2), var(--desk) 70
 .page.cover .sheet,.page.back .sheet{padding:0}
 
 /* controls */
-.bar{display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:6px 8px; padding-bottom:calc(6px + env(safe-area-inset-bottom,0px)); backdrop-filter:blur(6px)}
-.bar button{font:600 13px var(--body); color:var(--onnavy); background:transparent; border:0; border-radius:999px; padding:8px 14px; cursor:pointer; min-height:36px}
+.bar{display:flex; align-items:center; gap:2px; max-width:calc(100vw - 32px); background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:4px 6px; margin-bottom:env(safe-area-inset-bottom,0px); backdrop-filter:blur(6px); flex:0 0 auto}
+.bar button{font:600 13px var(--body); color:var(--onnavy); background:transparent; border:0; border-radius:999px; padding:6px 10px; cursor:pointer; min-height:38px; min-width:38px; white-space:nowrap; display:inline-flex; align-items:center; gap:5px}
 .bar button:hover{background:rgba(255,255,255,.12)}
 .bar button:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
-.bar .count{font:600 12px var(--mono); color:#c9d4ee; min-width:76px; text-align:center}
+.bar .ico{font-size:15px; line-height:1}
+.bar .label{display:none}
+.bar .count{font:600 12px var(--mono); color:#c9d4ee; min-width:58px; text-align:center; white-space:nowrap}
 .bar .snd[aria-pressed="false"]{opacity:.55}
+.bar .sep{width:1px; height:20px; background:rgba(255,255,255,.18); margin:0 4px}
+@media (min-width:1000px){ .bar .label{display:inline} }
 .brand{font:700 12px var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--gold)}
 
 /* page parts */
@@ -252,7 +256,6 @@ body.print .sheet{--s:1.3345}
 .zv-bar button:focus-visible{outline:2px solid var(--gold)}
 #zvPct{font:600 12px var(--mono); color:#c9d4ee; min-width:52px; text-align:center}
 .zv-hint{margin:0; padding:0 16px 8px; text-align:center; font-size:11px; color:#8fa0c8}
-.shot img,.photo img,.cert img{cursor:zoom-in}
 #book{transition:opacity .18s}
 #book.jump{opacity:0}
 /* ---- draft 2 additions ---- */
@@ -765,13 +768,14 @@ body.print .sheet{--s:1.3345}
   <div class="contact"><b>Ts. Dr. Mohd. Zamri bin Zahir Ahmad</b><span>zamrizahir@unimap.edu.my · 04-988 5509 / 5515</span><span>Fakulti Kejuruteraan &amp; Teknologi Elektronik, Universiti Malaysia Perlis</span></div>
 </div></div></div></div>
   <nav class="bar" aria-label="Kawalan e-book">
-    <button id="home" type="button" aria-label="Kembali ke muka hadapan">⏮ <span class="label">Muka hadapan</span></button>
-    <button id="prev" type="button" aria-label="Halaman sebelum">‹ <span class="label">Sebelum</span></button>
+    <button id="home" type="button" title="Muka hadapan" aria-label="Muka hadapan"><span class="ico">⏮</span><span class="label">Muka hadapan</span></button>
+    <button id="prev" type="button" title="Halaman sebelum" aria-label="Halaman sebelum"><span class="ico">‹</span></button>
     <span class="count" id="count" aria-live="polite">1 / 30</span>
-    <button id="next" type="button" aria-label="Halaman seterusnya"><span class="label">Seterusnya</span> ›</button>
-    <button id="toc" type="button">Kandungan</button>
-    <button id="zoom" type="button" aria-label="Zum halaman">🔍 <span class="label">Zum</span></button>
-    <button id="snd" class="snd" type="button" aria-pressed="true">🔊 <span class="label">Bunyi</span></button>
+    <button id="next" type="button" title="Halaman seterusnya" aria-label="Halaman seterusnya"><span class="ico">›</span></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button id="toc" type="button" title="Kandungan" aria-label="Kandungan"><span class="ico">☰</span><span class="label">Kandungan</span></button>
+    <button id="zoom" type="button" title="Zum halaman" aria-label="Zum halaman"><span class="ico">🔍</span><span class="label">Zum</span></button>
+    <button id="snd" class="snd" type="button" title="Bunyi" aria-label="Bunyi" aria-pressed="true"><span class="ico">🔊</span></button>
   </nav>
 </div>
 <div id="zv" class="zv" hidden role="dialog" aria-modal="true" aria-label="Paparan zum">
@@ -783,7 +787,7 @@ body.print .sheet{--s:1.3345}
     <button type="button" id="zvFit">Muat skrin</button>
     <button type="button" id="zvClose" aria-label="Tutup zum">✕ Tutup</button>
   </div>
-  <p class="zv-hint">Cubit atau gulung tetikus untuk zum · seret untuk alih · ketik dua kali untuk zum</p>
+  <p class="zv-hint">Cubit atau Ctrl + gulung tetikus untuk zum · seret untuk alih · ketik dua kali untuk zum dekat</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
@@ -801,7 +805,7 @@ body.print .sheet{--s:1.3345}
   let soundOn = true, ctx = null;
   try { soundOn = localStorage.getItem('ebook-sound') !== 'off'; } catch (e) {}
   const sndBtn = document.getElementById('snd');
-  const setSndBtn = () => { sndBtn.setAttribute('aria-pressed', String(soundOn)); sndBtn.firstChild.nodeValue = soundOn ? '🔊 ' : '🔈 '; };
+  const setSndBtn = () => { sndBtn.setAttribute('aria-pressed', String(soundOn)); sndBtn.querySelector('.ico').textContent = soundOn ? '🔊' : '🔈'; };
   setSndBtn();
   function flipSound() {
     if (!soundOn) return;
@@ -823,8 +827,8 @@ body.print .sheet{--s:1.3345}
 
   const pf = new St.PageFlip(book, {
     width: 595, height: 842, size: 'stretch', minWidth: 280, maxWidth: 1000, minHeight: 396, maxHeight: 1414,
-    showCover: true, maxShadowOpacity: 0.45, mobileScrollSupport: false, usePortrait: true, flippingTime: 850, drawShadow: true,
-    disableFlipByClick: true
+    showCover: true, maxShadowOpacity: 0.45, mobileScrollSupport: false, usePortrait: true, flippingTime: 700, drawShadow: true,
+    swipeDistance: 20
   });
   pf.loadFromHTML(book.querySelectorAll('.page'));
 
@@ -839,8 +843,11 @@ body.print .sheet{--s:1.3345}
     lastScale = w / 595;
     book.style.setProperty('--s', lastScale.toFixed(4));
   }
-  function wake() {
-    if (document.hidden) return;
+  let wasHidden = false;
+  function wake(e) {
+    if (document.hidden) { wasHidden = true; return; }
+    if (!wasHidden && !(e && e.type === 'pageshow' && e.persisted)) return;   // only after really coming back
+    wasHidden = false;
     const idx = pf.getCurrentPageIndex();
     window.dispatchEvent(new Event('resize'));
     setTimeout(() => {
@@ -852,7 +859,6 @@ body.print .sheet{--s:1.3345}
   }
   document.addEventListener('visibilitychange', wake);
   window.addEventListener('pageshow', wake);
-  window.addEventListener('focus', wake);
   function update() {
     const i = pf.getCurrentPageIndex(), portrait = pf.getOrientation() === 'portrait';
     const right = (!portrait && i > 0 && i < total - 1) ? i + 2 : i + 1;
@@ -943,44 +949,47 @@ body.print .sheet{--s:1.3345}
     if (!e.ctrlKey || !zv.hidden) return;
     e.preventDefault(); openAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.6 : null);
   }, { passive: false });
-  // two-finger pinch on the book (phone, tablet)
-  let tp = null;
-  book.addEventListener('touchstart', e => {
-    if (e.touches.length !== 2 || !zv.hidden) return;
-    e.stopPropagation(); e.preventDefault();
-    const [a, b] = e.touches;
-    tp = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) };
-    openZoom(pageNodes());
+  // ---------- touch: handled here instead of by the flipbook library (its touch swipe can turn the wrong way) ----------
+  // one finger: a clear horizontal swipe, or a tap on the outer side of the page, turns the page with the normal curl.
+  // two fingers: pinch to zoom.
+  let tp = null, sw = null;
+  const onControl = t => t.closest && t.closest('button, a, input, [data-go]');
+  window.addEventListener('touchstart', e => {
+    if (!zv.hidden || !book.contains(e.target)) return;
+    e.stopPropagation(); e.preventDefault();                 // keep the library and synthetic mouse clicks out
+    if (e.touches.length >= 2) {
+      const [a, b] = e.touches;
+      tp = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) }; sw = null;
+      openZoom(pageNodes()); return;
+    }
+    const t = e.touches[0]; sw = { x: t.clientX, y: t.clientY, t: Date.now(), ctl: onControl(e.target) };
   }, { capture: true, passive: false });
   window.addEventListener('touchmove', e => {
-    if (!tp || e.touches.length !== 2) return;
-    e.preventDefault();
-    const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), r = stage.getBoundingClientRect();
-    if (z.fit) zoomAt(d / tp.d, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
-    tp.d = d;
-  }, { passive: false });
-  window.addEventListener('touchend', e => { if (tp && e.touches.length < 2) { tp = null; if (z.s < z.fit * 0.9) closeZoom(); } });
-  // single tap turns the page (left half back, right half forward); double tap zooms in
-  let tapTimer = null, tapStart = null;
-  book.addEventListener('pointerdown', e => { tapStart = { x: e.clientX, y: e.clientY, t: Date.now() }; });
-  book.addEventListener('click', e => {
-    if (!zv.hidden || isInteractive(e.target) || e.target.closest(IMG_SEL)) return;
-    if (tapStart && (Math.hypot(e.clientX - tapStart.x, e.clientY - tapStart.y) > 10 || Date.now() - tapStart.t > 600)) return;
-    if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; openAt(e.clientX, e.clientY, 2.2); return; }
-    const x = e.clientX, rb = book.getBoundingClientRect();
-    tapTimer = setTimeout(() => { tapTimer = null; if (x < rb.left + rb.width / 2) pf.flipPrev(); else pf.flipNext(); }, 260);
-  });
-
-  // tap a screenshot or photo to open it alone
-  const IMG_SEL = '.shot img, .photo img, .cert img';
-  ['mousedown', 'touchstart', 'pointerdown'].forEach(t => book.addEventListener(t, e => { if (e.target.closest(IMG_SEL)) e.stopPropagation(); }, true));
-  book.addEventListener('click', e => {
-    const im = e.target.closest(IMG_SEL); if (!im) return;
+    if (tp) {
+      e.preventDefault(); e.stopPropagation();
+      if (e.touches.length !== 2) return;
+      const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), r = stage.getBoundingClientRect();
+      if (z.fit) zoomAt(d / tp.d, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
+      tp.d = d; return;
+    }
+    if (sw) { e.preventDefault(); e.stopPropagation(); }
+  }, { capture: true, passive: false });
+  window.addEventListener('touchend', e => {
+    if (tp) {
+      e.stopPropagation();
+      if (e.touches.length < 2) { tp = null; if (z.s < z.fit * 0.9) closeZoom(); }
+      return;
+    }
+    if (!sw) return;
     e.stopPropagation();
-    const n = new Image(); n.className = 'zimg'; n.src = im.currentSrc || im.src; n.alt = im.alt;
-    const go = () => openZoom([n]);
-    if (n.complete) go(); else n.onload = go;
+    const t = e.changedTouches[0], dx = t.clientX - sw.x, dy = t.clientY - sw.y, dt = Date.now() - sw.t, ctl0 = sw.ctl;
+    sw = null;
+    const r = book.getBoundingClientRect(), fx = (t.clientX - r.left) / r.width, ctl = ctl0;
+    if (ctl && Math.hypot(dx, dy) < 12) { ctl.click(); return; }          // contents links and buttons on a page
+    if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy) * 1.2) { dx < 0 ? pf.flipNext() : pf.flipPrev(); return; }
+    if (Math.hypot(dx, dy) < 12 && dt < 500) { if (fx > 0.6) pf.flipNext(); else if (fx < 0.4) pf.flipPrev(); }
   }, true);
+  window.addEventListener('touchcancel', () => { sw = null; tp = null; }, true);
 })();
 </script>
 </body></html>
