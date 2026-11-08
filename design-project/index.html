@@ -253,6 +253,8 @@ body.print .sheet{--s:1.3345}
 #zvPct{font:600 12px var(--mono); color:#c9d4ee; min-width:52px; text-align:center}
 .zv-hint{margin:0; padding:0 16px 8px; text-align:center; font-size:11px; color:#8fa0c8}
 .shot img,.photo img,.cert img{cursor:zoom-in}
+#book{transition:opacity .18s}
+#book.jump{opacity:0}
 /* ---- draft 2 additions ---- */
 .sheet{padding-bottom:28px}
 .grow{flex:1 1 0; min-height:0}
@@ -381,6 +383,13 @@ body.print .sheet{--s:1.3345}
 .hours .bigstat b{font-size:20px}
 .hours .bigstat span{font-size:9px}
 
+/* draft 5: cover logo and colours */
+.cover-head{display:flex; flex-direction:column; align-items:flex-start; gap:12px}
+.logo-card{background:#fff; border-radius:8px; padding:7px 12px; box-shadow:0 6px 16px -8px rgba(0,0,0,.6)}
+.logo-card img{display:block; height:46px; width:auto}
+.cover h1{color:var(--gold)}
+.h1sub .gold{color:var(--gold)}
+
 </style>
 
 <div class="stage">
@@ -388,11 +397,12 @@ body.print .sheet{--s:1.3345}
   <div id="book"><div class="page cover" data-density="hard"><div class="sheet">
 <div class="cover-bg" style="background-image:url(img/cover_hall.jpg)"></div><div class="cover-shade"></div>
 <div class="cover-in">
-  <div class="cover-top"><span class="tag">Anugerah Inovasi Pengajaran &amp; Pembelajaran UniMAP 2026</span><span class="tag gold">Kategori Pentaksiran Alternatif</span></div>
+  <div class="cover-head"><div class="logo-card"><img src="img/unimap_logo.png" alt="Universiti Malaysia Perlis"></div>
+  <div class="cover-top"><span class="tag">Anugerah Inovasi Pengajaran &amp; Pembelajaran UniMAP 2026</span><span class="tag gold">Kategori Pentaksiran Alternatif</span></div></div>
   <div class="cover-title">
     <div class="kicker">NMK31704 Design Project · FKTEN</div>
     <h1>DPMS</h1>
-    <p class="h1sub">Ekosistem e-Pentaksiran Berterusan untuk Projek Rekabentuk</p>
+    <p class="h1sub">Ekosistem e-Pentaksiran <span class="gold">Berterusan</span> untuk Projek Rekabentuk</p>
     <p class="cover-line">Pengumpulan pelajar automatik, logbook &amp; carta Gantt mingguan, penilaian rakan sebaya dan e-rubrik pelbagai penilai dalam satu aliran digital, dibina di atas Google Workspace UniMAP tanpa kos lesen.</p>
     <div class="cover-badges"><span>🥇 Pingat Emas EDIC 2026 (IQ-SITE)</span><span>182 pelajar · 43 kumpulan · 76 penilai</span></div>
   </div>
@@ -755,6 +765,7 @@ body.print .sheet{--s:1.3345}
   <div class="contact"><b>Ts. Dr. Mohd. Zamri bin Zahir Ahmad</b><span>zamrizahir@unimap.edu.my · 04-988 5509 / 5515</span><span>Fakulti Kejuruteraan &amp; Teknologi Elektronik, Universiti Malaysia Perlis</span></div>
 </div></div></div></div>
   <nav class="bar" aria-label="Kawalan e-book">
+    <button id="home" type="button" aria-label="Kembali ke muka hadapan">⏮ <span class="label">Muka hadapan</span></button>
     <button id="prev" type="button" aria-label="Halaman sebelum">‹ <span class="label">Sebelum</span></button>
     <span class="count" id="count" aria-live="polite">1 / 30</span>
     <button id="next" type="button" aria-label="Halaman seterusnya"><span class="label">Seterusnya</span> ›</button>
@@ -812,7 +823,8 @@ body.print .sheet{--s:1.3345}
 
   const pf = new St.PageFlip(book, {
     width: 595, height: 842, size: 'stretch', minWidth: 280, maxWidth: 1000, minHeight: 396, maxHeight: 1414,
-    showCover: true, maxShadowOpacity: 0.45, mobileScrollSupport: false, usePortrait: true, flippingTime: 850, drawShadow: true
+    showCover: true, maxShadowOpacity: 0.45, mobileScrollSupport: false, usePortrait: true, flippingTime: 850, drawShadow: true,
+    disableFlipByClick: true
   });
   pf.loadFromHTML(book.querySelectorAll('.page'));
 
@@ -854,6 +866,7 @@ body.print .sheet{--s:1.3345}
   window.addEventListener('resize', () => setTimeout(rescale, 60));
   rescale(); update();
 
+  document.getElementById('home').addEventListener('click', () => { if (pf.getCurrentPageIndex() === 0) return; flipSound(); book.classList.add('jump'); setTimeout(() => { pf.turnToPage(0); update(); book.classList.remove('jump'); }, 180); });
   document.getElementById('prev').addEventListener('click', () => pf.flipPrev());
   document.getElementById('next').addEventListener('click', () => pf.flipNext());
   document.getElementById('toc').addEventListener('click', () => { pf.flip(1); });
@@ -912,9 +925,51 @@ body.print .sheet{--s:1.3345}
       zoomAt(d / pinch.d, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); pinch.d = d;
     } else if (pts.size === 1) { z.x += dx; z.y += dy; apply(); }
   });
-  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) stage.classList.remove('drag'); };
+  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) { stage.classList.remove('drag'); if (z.s < z.fit * 0.9) closeZoom(); } };
   stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
   window.addEventListener('resize', () => { if (!zv.hidden) fit(); });
+
+  let wheelEnd = null;
+  stage.addEventListener('wheel', () => { clearTimeout(wheelEnd); wheelEnd = setTimeout(() => { if (z.s < z.fit * 0.9) closeZoom(); }, 350); });
+
+  // ---------- gesture zoom straight from the book (no button needed) ----------
+  const isInteractive = t => t.closest('button, a, input, select, [data-go]');
+  function openAt(cx, cy, factor) {
+    openZoom(pageNodes());
+    requestAnimationFrame(() => requestAnimationFrame(() => { const r = stage.getBoundingClientRect(); if (factor) zoomAt(factor, cx - r.left, cy - r.top); }));
+  }
+  // Ctrl + wheel and trackpad pinch (laptop)
+  book.addEventListener('wheel', e => {
+    if (!e.ctrlKey || !zv.hidden) return;
+    e.preventDefault(); openAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.6 : null);
+  }, { passive: false });
+  // two-finger pinch on the book (phone, tablet)
+  let tp = null;
+  book.addEventListener('touchstart', e => {
+    if (e.touches.length !== 2 || !zv.hidden) return;
+    e.stopPropagation(); e.preventDefault();
+    const [a, b] = e.touches;
+    tp = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) };
+    openZoom(pageNodes());
+  }, { capture: true, passive: false });
+  window.addEventListener('touchmove', e => {
+    if (!tp || e.touches.length !== 2) return;
+    e.preventDefault();
+    const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), r = stage.getBoundingClientRect();
+    if (z.fit) zoomAt(d / tp.d, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
+    tp.d = d;
+  }, { passive: false });
+  window.addEventListener('touchend', e => { if (tp && e.touches.length < 2) { tp = null; if (z.s < z.fit * 0.9) closeZoom(); } });
+  // single tap turns the page (left half back, right half forward); double tap zooms in
+  let tapTimer = null, tapStart = null;
+  book.addEventListener('pointerdown', e => { tapStart = { x: e.clientX, y: e.clientY, t: Date.now() }; });
+  book.addEventListener('click', e => {
+    if (!zv.hidden || isInteractive(e.target) || e.target.closest(IMG_SEL)) return;
+    if (tapStart && (Math.hypot(e.clientX - tapStart.x, e.clientY - tapStart.y) > 10 || Date.now() - tapStart.t > 600)) return;
+    if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; openAt(e.clientX, e.clientY, 2.2); return; }
+    const x = e.clientX, rb = book.getBoundingClientRect();
+    tapTimer = setTimeout(() => { tapTimer = null; if (x < rb.left + rb.width / 2) pf.flipPrev(); else pf.flipNext(); }, 260);
+  });
 
   // tap a screenshot or photo to open it alone
   const IMG_SEL = '.shot img, .photo img, .cert img';
