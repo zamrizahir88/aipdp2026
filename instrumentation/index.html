@@ -52,6 +52,11 @@ body{background:radial-gradient(ellipse at 50% 28%,var(--desk2),var(--desk) 72%)
 .bar .label{display:none}
 .bar .count{font:600 12px var(--mono);color:#bfe3df;min-width:58px;text-align:center;white-space:nowrap}
 .bar .snd[aria-pressed="false"]{opacity:.55}
+.bar #fs[hidden]{display:none}
+/* full screen: the book takes the whole screen, the top line hides */
+body.fs .brandline{display:none}
+body.fs .stage{padding-block:8px}
+@media (max-width:420px){.bar #home{display:none}}
 .bar .sep{width:1px;height:20px;background:rgba(255,255,255,.18);margin:0 4px}
 @media (min-width:1000px){.bar .label{display:inline}}
 
@@ -1061,6 +1066,7 @@ body.print .funnel i{width:var(--w)}
     <span class="sep" aria-hidden="true"></span>
     <button id="toc" type="button" title="Contents" aria-label="Contents"><span class="ico">☰</span><span class="label">Contents</span></button>
     <button id="zoom" type="button" title="Zoom" aria-label="Zoom the page"><span class="ico">🔍</span><span class="label">Zoom</span></button>
+    <button id="fs" type="button" title="Full screen (F)" aria-label="Full screen" aria-pressed="false" hidden><span class="ico">⛶</span><span class="label">Full screen</span></button>
     <button id="theme" type="button" title="Light or dark pages" aria-label="Switch light or dark pages"><span class="ico">◐</span></button>
     <button id="snd" class="snd" type="button" title="Page sound" aria-label="Page-turn sound" aria-pressed="true"><span class="ico">🔊</span></button>
   </nav>
@@ -1096,6 +1102,27 @@ body.print .funnel i{width:var(--w)}
 
   const eager = img => { if (img.loading === 'lazy') img.loading = 'eager'; };
   if (PRINT) { document.querySelectorAll('img').forEach(eager); document.body.classList.add('print'); book.querySelectorAll('.page').forEach(p => p.classList.add('seen')); return; }
+
+  // full screen (computers, Android and iPad; iPhone Safari has no full screen for pages, so the button stays hidden there)
+  const fsBtn = document.getElementById('fs'), de = document.documentElement;
+  const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+  const fsOk = !!(de.requestFullscreen || de.webkitRequestFullscreen);
+  function fsToggle() {
+    try {
+      if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else { const r = (de.requestFullscreen || de.webkitRequestFullscreen).call(de, { navigationUI: 'hide' }); if (r && r.catch) r.catch(() => {}); }
+    } catch (e) {}
+  }
+  function fsSync() {
+    const on = !!fsEl();
+    document.body.classList.toggle('fs', on);
+    fsBtn.setAttribute('aria-pressed', String(on));
+    fsBtn.title = on ? 'Exit full screen (F or Esc)' : 'Full screen (F)';
+    fsBtn.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen');
+    fsBtn.querySelector('.label').textContent = on ? 'Exit full screen' : 'Full screen';
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 80);
+  }
+  if (fsOk) { fsBtn.hidden = false; fsBtn.addEventListener('click', fsToggle); document.addEventListener('fullscreenchange', fsSync); document.addEventListener('webkitfullscreenchange', fsSync); }
 
   document.getElementById('theme').addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('trace-theme', root.dataset.theme); } catch (e) {} });
 
@@ -1194,6 +1221,7 @@ body.print .funnel i{width:var(--w)}
     if (e.key === 'ArrowRight' || e.key === 'PageDown') pf.flipNext();
     if (e.key === 'ArrowLeft' || e.key === 'PageUp') pf.flipPrev();
     if (e.key === 'Home') go(0);
+    if ((e.key === 'f' || e.key === 'F') && fsOk && !e.ctrlKey && !e.metaKey && !e.altKey) fsToggle();
   });
   book.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); go(Number(b.dataset.go) - 1); }));
   // links on a page must not start a page turn
