@@ -497,28 +497,57 @@ body.print .sheet{--s:1.3345}
 .cover .cover-line{font-size:11.5px;max-width:44ch;margin-top:8px}
 .cover .cover-badges{margin-top:auto}
 .tbl.colist tbody th,.tbl.synth tbody th{background:var(--mist);color:var(--navy)}
+/* draft 10: professional cover, full shadow restored */
+.cover-bg{background-position:center center}
+.cover-shade{background:linear-gradient(180deg, rgba(10,24,56,.55) 0%, rgba(11,42,111,.72) 45%, rgba(8,18,44,.97) 100%)}
+.cover-vign{position:absolute;inset:0;background:radial-gradient(120% 85% at 50% 42%, rgba(0,0,0,0) 55%, rgba(4,10,28,.55) 100%)}
+.cover-in.cv2{gap:0;padding:30px 36px 28px}
+.cv-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.cv-award{display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right}
+.cv-a1{font:600 8px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#dbe4f7}
+.cv-a2{font:800 15px/1 var(--display);color:#fff;letter-spacing:.03em;margin-bottom:3px}
+.cv-title{margin-top:40px}
+.cv2 h1{font-size:104px;margin:4px 0 0;text-shadow:0 8px 28px rgba(0,0,0,.45)}
+.cv2 .h1full{font:600 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#fff;margin:4px 0 0;opacity:1}
+.cv-rule{display:block;width:64px;height:3px;background:var(--gold);margin:16px 0 13px;border-radius:2px}
+.cv2 .h1sub{font:800 23px/1.17 var(--display);max-width:25ch;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.cv2 .cover-line{font-size:11.5px;line-height:1.5;color:#e3e9f7;max-width:40ch;margin-top:10px}
+.cv-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.cv2 .cover-badges{margin-top:0}
+.cv2 .cover-team{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 14px}
+/* language switch */
+.langbtn{display:inline-flex;align-items:center;gap:4px;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;font:700 11px var(--body);white-space:nowrap}
+.langbtn .on{color:var(--gold)} .langbtn .sep{opacity:.5} .langbtn .off{opacity:.85}
+.langbtn:hover{background:rgba(255,255,255,.12)}
+@media (max-width:480px){.langbtn{padding:4px 7px;gap:0;font-size:10.5px}.langbtn .on,.langbtn .sep{display:none}.langbtn .off{opacity:1;color:var(--gold)}}
+@media (max-width:380px){.bar{gap:2px !important;padding-left:5px !important;padding-right:5px !important}.bar button{padding-left:5px !important;padding-right:5px !important;min-width:0 !important}.bar .count{padding:0 3px !important}}
 
 </style>
 
 <div class="stage">
   <div class="brand">DPMS · AIPDP UniMAP 2026</div>
   <div id="book"><div class="page cover" data-density="hard"><div class="sheet">
-<div class="cover-bg" style="background-image:url(img/cover_hall.jpg)"></div><div class="cover-shade"></div>
-<div class="cover-in">
-  <div class="cover-head"><div class="logo-card"><img src="img/unimap_logo.png" alt="Universiti Malaysia Perlis"></div>
-  <div class="cover-top"><span class="tag">Anugerah Inovasi Pengajaran &amp; Pembelajaran UniMAP 2026</span><span class="tag gold">Kategori Pentaksiran Alternatif</span></div></div>
-  <div class="cover-title">
+<div class="cover-bg" style="background-image:url(img/cover_hall.jpg)"></div><div class="cover-shade"></div><div class="cover-vign"></div>
+<div class="cover-in cv2">
+  <div class="cv-top">
+    <div class="logo-card"><img src="img/unimap_logo.png" alt="Universiti Malaysia Perlis"></div>
+    <div class="cv-award"><span class="cv-a1">Anugerah Inovasi Pengajaran &amp; Pembelajaran</span><span class="cv-a2">AIPDP UniMAP 2026</span><span class="tag gold">Kategori Pentaksiran Alternatif</span></div>
+  </div>
+  <div class="cv-title">
     <div class="kicker">NMK31704 Design Project · FKTEN</div>
     <h1>DPMS</h1>
     <p class="h1full">Design Project Management System</p>
+    <i class="cv-rule"></i>
     <p class="h1sub">Mentransformasikan Pengurusan &amp; Pentaksiran <span class="gold">Autentik</span> Projek Rekabentuk</p>
     <p class="cover-line">Daripada kertas kepada bukti mingguan: pentaksiran yang adil dan autentik untuk setiap pelajar.</p>
   </div>
-  <div class="cover-badges"><span>🥇 Pingat Emas EDIC 2026 (IQ-SITE)</span><span>182 pelajar · 43 projek sebenar · 76 penilai</span></div>
-  <div class="cover-team">
-    <img src="img/team_coordinators.jpg" alt="Empat penyelaras kursus NMK31704">
-    <div><b>Ts. Dr. Mohd. Zamri bin Zahir Ahmad</b> (Ketua)<br>Ts. Dr. Ahmad Ashraf bin Abdul Halim<br>Ts. Dr. 'Aini Syuhada binti Md Zain<br>Dr. Nurol Husna binti Che Rose
-    <span>Fakulti Kejuruteraan &amp; Teknologi Elektronik, Universiti Malaysia Perlis</span></div>
+  <div class="cv-bottom">
+    <div class="cover-badges"><span>🥇 Pingat Emas EDIC 2026 (IQ-SITE)</span><span>182 pelajar · 43 projek sebenar · 76 penilai</span></div>
+    <div class="cover-team">
+      <img src="img/team_coordinators.jpg" alt="Empat penyelaras kursus NMK31704">
+      <div><b>Ts. Dr. Mohd. Zamri bin Zahir Ahmad</b> (Ketua)<br>Ts. Dr. Ahmad Ashraf bin Abdul Halim<br>Ts. Dr. 'Aini Syuhada binti Md Zain<br>Dr. Nurol Husna binti Che Rose
+      <span>Fakulti Kejuruteraan &amp; Teknologi Elektronik, Universiti Malaysia Perlis</span></div>
+    </div>
   </div>
 </div></div></div>
 <div class="page "><div class="sheet">
@@ -596,7 +625,7 @@ body.print .sheet{--s:1.3345}
 <div class="folio"><span>AIPDP UniMAP 2026 · Pentaksiran Alternatif</span><b>6</b></div></div></div>
 <div class="page "><div class="sheet">
 <header class="ph"><div class="eyebrow"><span>C · Sinopsis</span></div><h2>Apa itu DPMS?</h2><p class="lede">DPMS (Design Project Management System) ialah ekosistem digital yang dibangunkan oleh pasukan penyelaras untuk mengurus dan menaksir kursus NMK31704 Projek Rekabentuk, dari pembentukan kumpulan hingga markah akhir pelajar.</p></header>
-<div class="fig"><svg viewBox="0 0 520 318" class="illus" role="img" aria-label="Tiga komponen DPMS dan penggunanya" font-family="Plus Jakarta Sans,sans-serif"><g transform="translate(26,62) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#0b2a6f"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#0b2a6f"/></g><text x="26" y="86" font-size="9" fill="#14213d" font-weight="800" text-anchor="middle">Pelajar</text><g transform="translate(26,134) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#0f9b88"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#0f9b88"/></g><text x="26" y="158" font-size="9" fill="#14213d" font-weight="800" text-anchor="middle">Penyelia</text><g transform="translate(26,206) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#2b4c9b"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#2b4c9b"/></g><text x="26" y="230" font-size="9" fill="#14213d" font-weight="800" text-anchor="middle">Panel</text><g transform="translate(26,278) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#f2b705"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#f2b705"/></g><text x="26" y="302" font-size="9" fill="#14213d" font-weight="800" text-anchor="middle">Penyelaras</text><rect x="96" y="10" width="246" height="76" rx="10" fill="#fff" stroke="#0b2a6f" stroke-width="2"/><rect x="96" y="10" width="246" height="24" rx="10" fill="#0b2a6f"/><rect x="96" y="24" width="246" height="10" fill="#0b2a6f"/><text x="106" y="27" font-size="11" fill="#fff" font-weight="800" text-anchor="start">1 · Alat pengumpulan</text><text x="332" y="27" font-size="8" fill="#fff" font-weight="600" text-anchor="end">Python (desktop)</text><text x="108" y="50" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Kumpulan seimbang (4 faktor)</text><text x="108" y="64" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Agihan penyelia & panel</text><text x="108" y="78" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Semakan pertindihan program</text><path d="M344 48.0 h22" stroke="#0b2a6f" stroke-width="2.2"/><circle cx="370" cy="48.0" r="4" fill="#0b2a6f"/><rect x="380" y="28.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="45.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Kumpulan adil</text><text x="390" y="59.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">minit, bukan hari</text><rect x="96" y="98" width="246" height="90" rx="10" fill="#fff" stroke="#0f9b88" stroke-width="2"/><rect x="96" y="98" width="246" height="24" rx="10" fill="#0f9b88"/><rect x="96" y="112" width="246" height="10" fill="#0f9b88"/><text x="106" y="115" font-size="11" fill="#fff" font-weight="800" text-anchor="start">2 · Portal DPMS</text><text x="332" y="115" font-size="8" fill="#fff" font-weight="600" text-anchor="end">Google Apps Script</text><text x="108" y="138" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Carta Gantt interaktif</text><text x="108" y="152" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• e-Logbook mingguan + pengesahan</text><text x="108" y="166" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Penilaian rakan sebaya</text><text x="108" y="180" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Penghantaran laporan, poster, brosur, video</text><path d="M344 143.0 h22" stroke="#0f9b88" stroke-width="2.2"/><circle cx="370" cy="143.0" r="4" fill="#0f9b88"/><rect x="380" y="123.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="140.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Bukti mingguan</text><text x="390" y="154.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">592 logbook disahkan</text><rect x="96" y="200" width="246" height="76" rx="10" fill="#fff" stroke="#f2b705" stroke-width="2"/><rect x="96" y="200" width="246" height="24" rx="10" fill="#f2b705"/><rect x="96" y="214" width="246" height="10" fill="#f2b705"/><text x="106" y="217" font-size="11" fill="#14213d" font-weight="800" text-anchor="start">3 · eScoring</text><text x="332" y="217" font-size="8" fill="#14213d" font-weight="600" text-anchor="end">Google Apps Script</text><text x="108" y="240" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• e-Rubrik penyelia, Panel 1, Panel 2</text><text x="108" y="254" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Semakan percanggahan markah</text><text x="108" y="268" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Markah akhir & analisis CO-PO</text><path d="M344 238.0 h22" stroke="#f2b705" stroke-width="2.2"/><circle cx="370" cy="238.0" r="4" fill="#f2b705"/><rect x="380" y="218.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="235.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Markah akhir</text><text x="390" y="249.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">tanpa kalkulator</text><rect x="96" y="288" width="420" height="24" rx="12" fill="#0b2a6f"/><text x="306" y="304" font-size="9.4" fill="#fff" font-weight="800" text-anchor="middle">Satu portal kursus · kos lesen RM0 · Google Workspace UniMAP</text></svg></div>
+<div class="fig"><svg viewBox="0 0 520 318" class="illus" role="img" aria-label="Tiga komponen DPMS dan penggunanya" font-family="Plus Jakarta Sans,sans-serif"><g transform="translate(38,62) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#0b2a6f"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#0b2a6f"/></g><text x="38" y="86" font-size="8.6" fill="#14213d" font-weight="800" text-anchor="middle">Pelajar</text><g transform="translate(38,134) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#0f9b88"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#0f9b88"/></g><text x="38" y="158" font-size="8.6" fill="#14213d" font-weight="800" text-anchor="middle">Penyelia</text><g transform="translate(38,206) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#2b4c9b"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#2b4c9b"/></g><text x="38" y="230" font-size="8.6" fill="#14213d" font-weight="800" text-anchor="middle">Panel</text><g transform="translate(38,278) scale(1.2)" ><circle cx="0" cy="-15" r="7" fill="#f2b705"/><path d="M-11 6 Q-11 -6 0 -6 Q11 -6 11 6 Z" fill="#f2b705"/></g><text x="38" y="302" font-size="8.6" fill="#14213d" font-weight="800" text-anchor="middle">Penyelaras</text><rect x="96" y="10" width="246" height="76" rx="10" fill="#fff" stroke="#0b2a6f" stroke-width="2"/><rect x="96" y="10" width="246" height="24" rx="10" fill="#0b2a6f"/><rect x="96" y="24" width="246" height="10" fill="#0b2a6f"/><text x="106" y="27" font-size="11" fill="#fff" font-weight="800" text-anchor="start">1 · Alat pengumpulan</text><text x="332" y="27" font-size="8" fill="#fff" font-weight="600" text-anchor="end">Python (desktop)</text><text x="108" y="50" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Kumpulan seimbang (4 faktor)</text><text x="108" y="64" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Agihan penyelia & panel</text><text x="108" y="78" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Semakan pertindihan program</text><path d="M344 48.0 h22" stroke="#0b2a6f" stroke-width="2.2"/><circle cx="370" cy="48.0" r="4" fill="#0b2a6f"/><rect x="380" y="28.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="45.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Kumpulan adil</text><text x="390" y="59.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">minit, bukan hari</text><rect x="96" y="98" width="246" height="90" rx="10" fill="#fff" stroke="#0f9b88" stroke-width="2"/><rect x="96" y="98" width="246" height="24" rx="10" fill="#0f9b88"/><rect x="96" y="112" width="246" height="10" fill="#0f9b88"/><text x="106" y="115" font-size="11" fill="#fff" font-weight="800" text-anchor="start">2 · Portal DPMS</text><text x="332" y="115" font-size="8" fill="#fff" font-weight="600" text-anchor="end">Google Apps Script</text><text x="108" y="138" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Carta Gantt interaktif</text><text x="108" y="152" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• e-Logbook mingguan + pengesahan</text><text x="108" y="166" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Penilaian rakan sebaya</text><text x="108" y="180" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Penghantaran laporan, poster, brosur, video</text><path d="M344 143.0 h22" stroke="#0f9b88" stroke-width="2.2"/><circle cx="370" cy="143.0" r="4" fill="#0f9b88"/><rect x="380" y="123.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="140.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Bukti mingguan</text><text x="390" y="154.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">592 logbook disahkan</text><rect x="96" y="200" width="246" height="76" rx="10" fill="#fff" stroke="#f2b705" stroke-width="2"/><rect x="96" y="200" width="246" height="24" rx="10" fill="#f2b705"/><rect x="96" y="214" width="246" height="10" fill="#f2b705"/><text x="106" y="217" font-size="11" fill="#14213d" font-weight="800" text-anchor="start">3 · eScoring</text><text x="332" y="217" font-size="8" fill="#14213d" font-weight="600" text-anchor="end">Google Apps Script</text><text x="108" y="240" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• e-Rubrik penyelia, Panel 1, Panel 2</text><text x="108" y="254" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Semakan percanggahan markah</text><text x="108" y="268" font-size="9.2" fill="#14213d" font-weight="600" text-anchor="start">• Markah akhir & analisis CO-PO</text><path d="M344 238.0 h22" stroke="#f2b705" stroke-width="2.2"/><circle cx="370" cy="238.0" r="4" fill="#f2b705"/><rect x="380" y="218.0" width="136" height="40" rx="8" fill="#eef2f9"/><text x="390" y="235.0" font-size="10.5" fill="#0b2a6f" font-weight="800" text-anchor="start">Markah akhir</text><text x="390" y="249.0" font-size="8.5" fill="#5a6886" font-weight="600" text-anchor="start">tanpa kalkulator</text><rect x="96" y="288" width="420" height="24" rx="12" fill="#0b2a6f"/><text x="306" y="304" font-size="9.4" fill="#fff" font-weight="800" text-anchor="middle">Satu portal kursus · kos lesen RM0 · Google Workspace UniMAP</text></svg></div>
 <div class="three-pill">
   <div><b>Mengapa dibina</b><span>182 pelajar, 3 program, 43 kumpulan dan 76 penilai tidak lagi boleh diurus dengan fail Word, emel dan kertas.</span></div>
   <div><b>Apa yang berubah</b><span>Setiap peringkat kursus kini berlaku dalam satu aliran digital, dengan bukti mingguan untuk setiap kumpulan.</span></div>
@@ -872,7 +901,7 @@ body.print .sheet{--s:1.3345}
 <tr><td>Brosur pemasaran</td><td>Panel 1, Panel 2</td><td>CO7 keusahawanan berfokuskan pengguna</td></tr>
 <tr><td>Video projek</td><td>Rujukan penilai &amp; penyebaran</td><td>Demonstrasi prototaip berfungsi</td></tr></tbody></table>
 <div class="duo grow">
-  <figure class="photo "><img src="img/e_proto.jpg" alt="Prototaip di gerai" data-focus="0.1,0.2,0.85,1.0" style="object-position:center 60%"><figcaption>Prototaip berfungsi dengan antara muka pemantauan.</figcaption></figure>
+  <figure class="photo "><img src="img/e_proto.jpg" alt="Prototaip di gerai" data-focus="0.2,0.35,0.8,0.9" style="object-position:center 60%"><figcaption>Prototaip berfungsi dengan antara muka pemantauan.</figcaption></figure>
   <figure class="photo "><img src="img/idssc_group_poster.jpg" alt="Poster dan prototaip" data-focus="0.0,0.35,0.95,0.65" style="object-position:center"><figcaption>Poster dan prototaip di gerai pameran.</figcaption></figure>
 </div>
 <div class="folio"><span>AIPDP UniMAP 2026 · Pentaksiran Alternatif</span><b>30</b></div></div></div>
@@ -1006,7 +1035,7 @@ body.print .sheet{--s:1.3345}
 </div>
 <div class="duo grow">
   <figure class="photo "><img src="img/sulam_vibe.jpg" alt="Pelajar di bilik VIBE" data-focus="0.3,0.35,0.7,0.75" style="object-position:center"><figcaption>Pelajar FKTEN mengendalikan sesi dari UniMAP.</figcaption></figure>
-  <figure class="photo "><img src="img/sulam_screen.jpg" alt="Skrin sesi hibrid" data-focus="0.15,0.3,0.6,0.75" style="object-position:center"><figcaption>Sesi hibrid "Lensa Sains" menghubungkan UniMAP dan Yala.</figcaption></figure>
+  <figure class="photo "><img src="img/sulam_screen.jpg" alt="Skrin sesi hibrid" data-focus="0.2,0.35,0.6,0.7" style="object-position:center"><figcaption>Sesi hibrid "Lensa Sains" menghubungkan UniMAP dan Yala.</figcaption></figure>
 </div>
 <div class="quote-band">Mengurangkan beban pentadbiran memberi pasukan masa untuk pengalaman pembelajaran yang lebih bermakna kepada pelajar.</div>
 <div class="folio"><span>AIPDP UniMAP 2026 · Pentaksiran Alternatif</span><b>43</b></div></div></div>
@@ -1101,6 +1130,7 @@ body.print .sheet{--s:1.3345}
     <button id="toc" type="button" title="Kandungan" aria-label="Kandungan"><span class="ico">☰</span><span class="label">Kandungan</span></button>
     <button id="zoom" type="button" title="Zum halaman" aria-label="Zum halaman"><span class="ico">🔍</span><span class="label">Zum</span></button>
     <button id="snd" class="snd" type="button" title="Bunyi" aria-label="Bunyi" aria-pressed="true"><span class="ico">🔊</span></button>
+    <a id="lang" class="langbtn" href="en.html" title="English version" aria-label="English version"><span class="on">BM</span><span class="sep">|</span><span class="off">EN</span></a>
   </nav>
 </div>
 <div id="zv" class="zv" hidden role="dialog" aria-modal="true" aria-label="Paparan zum">
@@ -1208,7 +1238,11 @@ body.print .sheet{--s:1.3345}
   pf.on('flip', () => { update(); setTimeout(ff, 30); });
   pf.on('changeState', e => { if (e.data === 'flipping') flipSound(); });
   pf.on('changeOrientation', () => { rescale(); update(); setTimeout(ff, 60); });
-  pf.on('init', () => { rescale(); update(); setTimeout(ff, 60); });
+  pf.on('init', () => { rescale(); update(); setTimeout(ff, 60);
+    const m = location.hash.match(/p=(\d+)/); if (m) { const n = Math.min(Math.max(+m[1], 1), total); if (n > 1) setTimeout(() => pf.turnToPage(n - 1), 80); }
+  });
+  const langA = document.getElementById('lang');
+  if (langA) langA.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); location.href = langA.getAttribute('href').split('#')[0] + '#p=' + (pf.getCurrentPageIndex() + 1); });
   new ResizeObserver(rescale).observe(book);
   window.addEventListener('resize', () => setTimeout(() => { rescale(); ff(); }, 60));
   rescale(); update();
